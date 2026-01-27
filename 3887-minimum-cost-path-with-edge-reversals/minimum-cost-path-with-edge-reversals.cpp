@@ -20,8 +20,7 @@ public:
         while (!pq.empty()) {
             auto [cost, node] = pq.top();
             pq.pop();
-            if (cost > dist[node])
-                continue; 
+            
             for (auto& [nei, w] : adj[node]) {
                 if (dist[nei] > cost + w) {
                     dist[nei] = cost + w;
