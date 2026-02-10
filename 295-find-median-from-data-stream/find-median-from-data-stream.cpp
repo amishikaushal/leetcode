@@ -32,7 +32,7 @@ public:
          if(maxheap.size() == minheap.size()) {
             return (maxheap.top() + minheap.top()) / 2.0;
         }
-        return (double)maxheap.top();
+        return maxheap.top();
     }
 };
 
