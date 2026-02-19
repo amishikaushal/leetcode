@@ -11,25 +11,24 @@
  */
 class Solution {
 public:
-    int solve(TreeNode* root , bool& isBal){
+    int solve(TreeNode* root , bool &ans){
         if(!root){
             return 0;
         }
 
 
-        int l = solve(root -> left , isBal);
-        int r = solve(root -> right , isBal);
+        int left = solve(root -> left , ans);
+        int right = solve(root -> right , ans);
 
-        if(abs(l - r) > 1){
-            isBal = false;
+        if(abs(left - right) > 1){
+            ans = false;
         }
-
-        return 1 + max(l , r);
+        return 1 + max(right , left);
     }
     bool isBalanced(TreeNode* root) {
-        bool istrue = true;
-
-        solve(root , istrue);
-        return istrue;
+        bool ans = true;
+        
+        solve(root , ans);
+        return ans;
     }
 };
