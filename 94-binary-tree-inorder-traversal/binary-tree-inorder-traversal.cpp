@@ -11,21 +11,39 @@
  */
 class Solution {
 public:
-    void solve(TreeNode* root , vector<int> &ans){
-        if(!root){
-            return;
-        }
-
-        
-        solve(root -> left , ans);
-        ans.push_back(root -> val);
-        solve(root -> right , ans);
-    }
+    //morris trversal
     vector<int> inorderTraversal(TreeNode* root) {
-        vector<int> ans;
+        vector<int> inorder;
 
-        solve(root , ans);
+        TreeNode* curr = root;
 
-        return ans;
+        while(curr){
+            if(curr -> left == nullptr){
+                inorder.push_back(curr -> val);
+                curr = curr -> right;
+            }
+            else{
+
+                TreeNode* prev = curr -> left;
+
+
+                while(prev -> right && prev -> right != curr){
+                    prev = prev -> right;
+                }
+
+                if(prev -> right == nullptr){
+                    prev -> right = curr;
+                    curr = curr -> left;
+                }
+                else{
+                    prev -> right = nullptr;
+                    inorder.push_back(curr -> val);
+                    curr = curr -> right;
+                }
+            }
+        }
+        return inorder;
+
+
     }
 };
