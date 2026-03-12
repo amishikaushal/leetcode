@@ -1,38 +1,60 @@
 class Solution {
-public:
-    void dfs(int  node , vector<vector<int>> &adj , vector<int> &vis ){
-        vis[node] = 1;
 
-        for(auto &it : adj[node]){
-            if(!vis[it]){
-                dfs(it , adj , vis);
-            }
+public:
+    vector<int> parent , rank;
+
+    int findParent(int node){
+        if(node == parent[node]){
+            return node;
+        }
+
+
+        return parent[node] = findParent(parent[node]);
+    }
+
+
+    void UnionByRank(int u , int v){
+        int pu = findParent(u);
+        int pv = findParent(v);
+
+        if(pu == pv) return;
+
+        if(rank[pv] < rank[pu]){
+            parent[pv] = pu;
+        }
+        else if(rank[pu] < rank[pv]){
+            parent[pu] = pv;
+        }
+        else{
+            parent[pv] = pu;
+            rank[pu]++;
         }
     }
     int makeConnected(int n, vector<vector<int>>& connections) {
         if(connections.size() < n -1){
             return -1;
         }
-        vector<vector<int>> adj(n);
 
 
-        for(auto it : connections){
-            adj[it[0]].push_back(it[1]);
-            adj[it[1]].push_back(it[0]);
-        }
+        parent.resize(n);
+        rank.resize(n , 0);
 
-
-        int cnt = 0;
-        vector<int> vis(n , 0);
 
         for(int i = 0 ; i < n ; i++){
-            if(!vis[i]){
-                dfs(i , adj , vis);
-                cnt++;
-            }
+            parent[i] = i;
         }
 
+        for(auto &it : connections){
+            UnionByRank(it[0] , it[1]);
+        }
 
-        return cnt - 1;
+        int components = 0;
+
+        for(int i = 0; i < n; i++) {
+            if(parent[i] == i)
+                components++;
+        }
+
+        return components - 1;
     }
 };
