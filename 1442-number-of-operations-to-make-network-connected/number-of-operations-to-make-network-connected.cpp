@@ -1,29 +1,27 @@
 class Solution {
-
 public:
-    vector<int> parent , rank;
+    vector<int> parent;
+    vector<int> rank;
 
-    int findParent(int node){
-        if(node == parent[node]){
-            return node;
+    int find(int u){
+        if(parent[u] == u){
+            return u;
         }
 
-
-        return parent[node] = findParent(parent[node]);
+        return parent[u] = find(parent[u]);
     }
 
+    void unite(int u , int v){
+        int pu = find(u);
+        int pv = find(v);
 
-    void UnionByRank(int u , int v){
-        int pu = findParent(u);
-        int pv = findParent(v);
+        if(pu == pv ) return;
 
-        if(pu == pv) return;
-
-        if(rank[pv] < rank[pu]){
-            parent[pv] = pu;
-        }
-        else if(rank[pu] < rank[pv]){
+        if(rank[pu] < rank[pv]){
             parent[pu] = pv;
+        }
+        else if(rank[pv] < rank[pu]){
+            parent[pv] = pu;
         }
         else{
             parent[pv] = pu;
@@ -35,26 +33,27 @@ public:
             return -1;
         }
 
-
         parent.resize(n);
         rank.resize(n , 0);
 
-
-        for(int i = 0 ; i < n ; i++){
+        for(int i = 0; i < n ; i++){
             parent[i] = i;
         }
 
+
         for(auto &it : connections){
-            UnionByRank(it[0] , it[1]);
+            unite(it[0] , it[1]);
         }
 
-        int components = 0;
+        int cnt = 0;
 
-        for(int i = 0; i < n; i++) {
-            if(parent[i] == i)
-                components++;
+        for(int i = 0; i < n ; i++){
+            if(parent[i] == i){
+                cnt++;
+            }
         }
 
-        return components - 1;
+
+        return cnt - 1;
     }
 };
