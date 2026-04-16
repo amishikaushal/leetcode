@@ -1,5 +1,6 @@
 class Solution {
 public:
+    vector<vector<string>> ans;
     bool isPalindrome(string s , int st , int e){
         while(st <= e){
             if(s[st++] != s[e--]){
@@ -8,7 +9,7 @@ public:
         }
         return true;
     }
-    void solve(int ind , string s, vector<string> res,  vector<vector<string>> &ans){
+    void solve(int ind , string s, vector<string> res){
         if(ind == s.length()){
             ans.push_back(res);
             return;
@@ -17,16 +18,16 @@ public:
         for(int i = ind ; i < s.length() ; i++){
             if(isPalindrome(s , ind , i)){
                 res.push_back(s.substr(ind , i - ind + 1));
-                solve(i + 1 , s , res , ans);
+                solve(i + 1 , s , res );
                 res.pop_back();
             }
         }
     }
     vector<vector<string>> partition(string s) {
-        vector<vector<string>> ans;
+      
         vector<string> res;
 
-        solve(0 , s , res , ans);
+        solve(0 , s , res);
         return ans;
     }
 };
