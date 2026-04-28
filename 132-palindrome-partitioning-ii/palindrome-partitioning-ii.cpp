@@ -27,8 +27,8 @@ public:
             int minCost = INT_MAX;
             for(int j = i ; j < n ; j++){
                 if(isPalindrome(i , j , s)){
-                    int cost = 1 + dp[j+1];
-                    minCost = min(minCost , cost);
+                     
+                    minCost = min(minCost , 1 + dp[j+1]);
                 }
             }
             dp[i] = minCost;
@@ -36,6 +36,5 @@ public:
 
         return dp[0] - 1;
 
-        
     }
 };
