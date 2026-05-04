@@ -1,39 +1,33 @@
 class Solution {
 public:
-    bool isPalindrome(int si , int e , string &s){
-        while(si < e){
-            if(s[si] != s[e]){
+    bool isPalindrome(string &a , int s , int e){
+        while(s < e){
+            if(a[s] != a[e]){
                 return false;
             }
-
-            si++;
+            s++;
             e--;
-
         }
         return true;
     }
     int minCut(string s) {
         int n = s.length();
 
-    
-        vector<int> dp(n +1 , 0);
-
-        dp[n] = 0;
+        vector<int> dp(n + 1 , 0);
+        
 
 
+        for(int i = n -1 ; i >= 0; i--){
+            int cost = INT_MAX;
 
-
-        for(int i = n -1 ; i >= 0 ; i--){
-            int minCost = INT_MAX;
             for(int j = i ; j < n ; j++){
-                if(isPalindrome(i , j , s)){
-                     
-                    minCost = min(minCost , 1 + dp[j+1]);
+                if(isPalindrome(s , i , j)){
+                    cost = min(cost , 1 + dp[j+1]);
                 }
             }
-            dp[i] = minCost;
-        }
 
+            dp[i] = cost;
+        }
         return dp[0] - 1;
 
     }
