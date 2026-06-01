@@ -6,16 +6,12 @@ public:
 
         int mini = prices[0];
 
-
-
         for(int i = 1 ; i < n ; i++){
             int diff = prices[i] - mini;
-
 
             if(diff > maxi){
                 maxi = diff;
             }
-
 
             mini = min(prices[i] , mini);
         }
