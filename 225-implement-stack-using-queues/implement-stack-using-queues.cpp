@@ -1,5 +1,5 @@
 class MyStack {
-private: 
+private:
     queue<int> q1;
     queue<int> q2;
 public:
@@ -23,19 +23,18 @@ public:
             return -1;
         }
 
-        int topi = q1.front();
+        int n = q1.front();
         q1.pop();
 
-        return topi;
+        return n;
     }
     
-    int top(){
+    int top() {
         if(q1.empty()){
             return -1;
         }
 
-        int topi = q1.front();
-        return topi;
+        return q1.front();
     }
     
     bool empty() {
@@ -43,3 +42,11 @@ public:
     }
 };
 
+/**
+ * Your MyStack object will be instantiated and called as such:
+ * MyStack* obj = new MyStack();
+ * obj->push(x);
+ * int param_2 = obj->pop();
+ * int param_3 = obj->top();
+ * bool param_4 = obj->empty();
+ */
