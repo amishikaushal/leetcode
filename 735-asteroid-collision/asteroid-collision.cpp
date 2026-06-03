@@ -4,25 +4,26 @@ public:
         stack<int> st;
         vector<int> ans;
 
-        for(auto &it : asteroids){
+        for(auto it : asteroids){
             if(it > 0){
                 st.push(it);
             }
             else{
+                
+
                 while(!st.empty() && st.top() > 0 && st.top() < abs(it)){
                     st.pop();
                 }
-
 
                 if(!st.empty() && st.top() == abs(it)){
                     st.pop();
                 }
 
-
                 else if(st.empty() || st.top() < 0){
                     st.push(it);
-                } 
+                }
             }
+
         }
 
         while(!st.empty()){
@@ -31,7 +32,6 @@ public:
         }
 
         reverse(ans.begin() , ans.end());
-
         return ans;
     }
 };
