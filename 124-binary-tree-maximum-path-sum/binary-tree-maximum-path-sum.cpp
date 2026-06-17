@@ -20,17 +20,20 @@ public:
         int r = max(0 , solve(root -> right , ans));
 
 
-        ans = max(ans , root -> val + l + r);
+        ans = max(ans ,  root -> val + l + r);
 
         return root -> val + max(l , r);
+
     }
     int maxPathSum(TreeNode* root) {
         if(!root){
             return 0;
         }
+
         int ans = INT_MIN;
 
         solve(root , ans);
+
 
         return ans;
     }
