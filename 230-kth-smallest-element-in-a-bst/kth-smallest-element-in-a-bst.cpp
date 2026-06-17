@@ -11,27 +11,26 @@
  */
 class Solution {
 public:
-    int ans ;
-
-    void solve(TreeNode* root, int k , int& cnt){
-        if(!root ){
+    int ans;
+    void inorder(TreeNode* root, int k , int &cnt){
+        if(!root){
             return;
         }
 
-        solve(root -> left , k , cnt);
+        inorder(root -> left , k , cnt);
 
         cnt++;
         if(cnt == k){
             ans = root -> val;
         }
 
-        solve(root -> right , k , cnt);
+        inorder(root -> right , k , cnt);
     }
     int kthSmallest(TreeNode* root, int k) {
-            int cnt = 0;
-            solve (root , k , cnt);
-            return ans;
+        int cnt = 0;
 
-        
+        inorder(root , k , cnt);
+
+        return ans;
     }
 };
