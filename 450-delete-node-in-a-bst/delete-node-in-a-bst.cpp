@@ -10,21 +10,24 @@
  * };
  */
 class Solution {
-public:
-    TreeNode* findmin(TreeNode* root){
+public: 
+    TreeNode* findMin(TreeNode* root){
         TreeNode* curr = root;
+
 
         while(curr -> left){
             curr = curr -> left;
         }
 
         return curr;
-
     }
+
     TreeNode* deleteNode(TreeNode* root, int key) {
         if(!root){
-            return root;
+            return nullptr;
         }
+
+
         if(root -> val > key){
             root -> left = deleteNode(root -> left , key);
         }
@@ -34,22 +37,22 @@ public:
         else{
             TreeNode* temp = root;
 
-            if(temp -> left == nullptr){
+            if(temp -> left == NULL){
                 return temp -> right;
                 delete temp;
             }
-            else if(temp -> right == nullptr){
+            else if(temp -> right == NULL){
                 return temp -> left;
                 delete temp;
             }
             else{
-                TreeNode* curr = findmin(root -> right);
+                TreeNode* curr = findMin(root -> right);
 
                 root -> val = curr -> val;
 
                 root -> right =  deleteNode(root -> right , curr -> val);
             }
         }
-         return root;
+        return root;
     }
 };
