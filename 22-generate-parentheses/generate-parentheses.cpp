@@ -1,6 +1,7 @@
 class Solution {
 public:
-    void solve(int even , int odd , string &curr , vector<string> &ans){
+    vector<string> ans;
+    void solve(int even , int odd , string &curr){
         if(even == 0 && odd == 0){
             ans.push_back(curr);
             return;
@@ -9,26 +10,28 @@ public:
 
         if(even > 0){
             string op1 = curr;
+
             op1.push_back('(');
 
-            solve(even - 1 , odd , op1 , ans);
+            solve(even -1 , odd , op1);
         }
+
+
         if(odd > even){
             string op2 = curr;
+
             op2.push_back(')');
-            solve(even , odd - 1 , op2 , ans);
+
+            solve(even , odd -1 , op2);
         }
     }
     vector<string> generateParenthesis(int n) {
-        int odd = n ; 
         int even = n;
-
-        vector<string> ans;
+        int odd = n;
         string curr = "";
 
-        solve(even , odd , curr , ans);
+        solve(even , odd , curr);
 
         return ans;
-
     }
 };
