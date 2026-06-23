@@ -1,6 +1,6 @@
 class Solution {
 public:
-     bool isSafe(int row , int col , vector<string> &board , int n){
+    bool isSafe(int row , int col , vector<string> &board , int n){
         int i = row;
         int j = col;
 
@@ -34,29 +34,33 @@ public:
 
         return true;
      }
-    void solve(int col , vector<string> &board , vector<vector<string>> &ans , int n){
+    void solve(int col , vector<string> &board ,vector<vector<string>> &ans , int n){
         if(col == n){
             ans.push_back(board);
             return;
         }
 
 
-        for(int r = 0 ; r < n ; r++ ){
-            if(isSafe(r , col , board , n)){
+        for(int r = 0 ; r < n ; r++){
+            if(isSafe(r, col, board , n)){
                 board[r][col] = 'Q';
-
 
                 solve( col + 1 , board , ans , n);
 
+
                 board[r][col] = '.';
+
+
             }
         }
     }
     vector<vector<string>> solveNQueens(int n) {
         vector<vector<string>> ans;
 
-        vector<string> board( n , string(n , '.'));
-        solve(0 , board, ans , n);
+
+        vector<string> board(n , string(n , '.'));
+
+        solve(0 , board , ans , n);
 
         return ans;
     }
