@@ -1,32 +1,37 @@
 class Solution {
 public:
-    vector<string> res;
-    unordered_map<char, string> phoneMap = {
-        {'2', "abc"}, {'3', "def"},
-        {'4', "ghi"}, {'5', "jkl"}, {'6', "mno"},
-        {'7', "pqrs"}, {'8', "tuv"}, {'9', "wxyz"}
-    };
+    vector<string> ans;
+    unordered_map<char , string> mpp = {{'2' , "abc"} , {'3', "def"} ,  {'4', "ghi"}, {'5', "jkl"}, {'6', "mno"}, {'7', "pqrs"}, {'8', "tuv"}, {'9', "wxyz"}}; 
 
-    void solve(int ind , string &path , string digits){
+    void solve(int ind , string digits, string &path){
         if(ind == digits.size()){
-            res.push_back(path);
+            ans.push_back(path);
             return;
         }
 
-        string letter = phoneMap[digits[ind]];
+        string letter = mpp[digits[ind]];
 
         for(auto ch : letter){
             path.push_back(ch);
-            solve(ind + 1 , path , digits);
+
+            solve(ind + 1 , digits , path);
+
             path.pop_back();
         }
 
+
     }
     vector<string> letterCombinations(string digits) {
-         if (digits.empty()) return {};
+        if(digits.size() == 0){
+            return {};
+        }
 
         string path = "";
-        solve(0, path, digits);
-        return res;
+
+        solve(0 , digits , path);
+
+        return ans;
+
+        
     }
 };
