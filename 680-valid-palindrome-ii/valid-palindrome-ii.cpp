@@ -11,19 +11,19 @@ public:
         return true;
     }
     bool validPalindrome(string s) {
-        int l = 0;
-        int r = s.length()- 1;
+        int n = s.length();
         
+        int l = 0;
 
-        while(l < r){
+        int r = n-1;
+
+        while(l <= r){
             if(s[l] != s[r]){
-                return isValid(s , l +1 , r)|| isValid(s , l , r -1);
+               return isValid(s , l + 1 , r) || isValid(s , l , r-1); 
             }
             l++;
             r--;
         }
-
         return true;
-
     }
 };
