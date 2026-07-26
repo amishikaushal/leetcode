@@ -19,20 +19,19 @@ public:
             root = root -> left;
         }
     }
-
     BSTIterator(TreeNode* root) {
         pushleft(root);
     }
     
     int next() {
-        TreeNode* temp = st.top();
+        TreeNode* node = st.top();
         st.pop();
 
-        if(temp -> right){
-            pushleft(temp -> right );
+        if(node -> right){
+            pushleft(node -> right);
         }
 
-        return temp -> val;
+        return node -> val;
     }
     
     bool hasNext() {
