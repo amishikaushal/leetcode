@@ -6,45 +6,44 @@ public:
 
         vector<vector<int>> dist(n , vector<int>(m , INT_MAX));
 
-        vector<int> dr = {-1 , 0 , 1 , 0};
-        vector<int> dc = {0 , -1 , 0 , 1};
-
-         priority_queue<pair<int, pair<int, int>>, 
+        priority_queue<pair<int, pair<int, int>>, 
                        vector<pair<int, pair<int, int>>>, 
                        greater<pair<int, pair<int, int>>>> pq;
 
-        pq.push({0 , {0 , 0}});
+        vector<int> delrow = {-1, 0 , 1 , 0};
+        vector<int> delcol = {0, -1 , 0 , 1};
+
+        pq.push({0 , {0,0}});
         dist[0][0] = 0;
+
 
         while(!pq.empty()){
             auto it = pq.top();
             pq.pop();
-
             int effort = it.first;
             int row = it.second.first;
             int col = it.second.second;
 
-            if(row == n -1 && col == m -1){
+
+            if(row == n-1 && col == m-1){
                 return effort;
             }
 
-            for(int i = 0 ; i < 4 ; i++){
-                int newr = row + dr[i];
-                int newc = col + dc[i];
+            for(int i = 0; i < 4 ; i++){
+                int nr = row + delrow[i];
+                int nc = col + delcol[i];
 
-                if(newr >= 0 && newr < n && newc >= 0 && newc < m){
-                    int diff = abs(heights[row][col] - heights[newr][newc]);
-                    int newe = max(effort , diff);
+                if(nr >= 0 && nr < n && nc >= 0 && nc < m){
+                    int diff = abs(heights[row][col] - heights[nr][nc]);
+                    int newe = max(diff , effort);
 
-
-                    if(newe < dist[newr][newc]){
-                        dist[newr][newc] = newe;
-                        pq.push({newe , {newr , newc}});
+                    if(newe < dist[nr][nc]){
+                        dist[nr][nc] = newe;
+                        pq.push({newe , {nr , nc}});
                     }
                 }
             }
         }
         return -1;
-
     }
 };
