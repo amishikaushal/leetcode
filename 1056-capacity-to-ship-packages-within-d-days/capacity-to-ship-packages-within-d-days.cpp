@@ -1,42 +1,38 @@
 class Solution {
 public:
-    int dayreq(vector<int> &nums, int wt){
-        int days = 1;
-
+    bool isPossible(vector<int>& weights, int days , int cap){
+        int d = 1;
         int load = 0;
-        int n = nums.size();
 
-        for(int i = 0; i < n ; i++){
-            if(load + nums[i] > wt){
-                days += 1;
-                load = nums[i];
+
+        for(int i = 0; i < weights.size() ; i++){
+            if(weights[i] + load > cap){
+                d++;
+                load = weights[i];
             }
             else{
-                load += nums[i];
+                load += weights[i];
             }
         }
-
-        return days;
+        return d <= days;
     }
     int shipWithinDays(vector<int>& weights, int days) {
-        int high = accumulate(weights.begin() , weights.end() , 0);
+        int l = *max_element(weights.begin() , weights.end());
+        int h = accumulate(weights.begin() , weights.end() , 0);
 
-        int low = *max_element(weights.begin() , weights.end());
-        //int ans = -1;
+        int ans = h;
 
-        while(low <= high){
-            int mid = high + (low - high)/2;
+        while(l <= h){
+            int mid = l + (h - l)/2;
 
-            int day = dayreq(weights , mid);
-
-            if(day <= days){
-                //ans = mid;
-                high = mid - 1;
+            if(isPossible(weights , days , mid)){
+                ans = mid;
+                h = mid - 1;
             }
             else{
-                low = mid + 1;
+                l = mid + 1;
             }
         }
-        return low;
+        return ans;
     }
 };
