@@ -1,7 +1,9 @@
 class Solution {
 public:
+    // basically we see two pinters and compare if equal dono ko bdha denge else if j == j-1 then j++ (long pressed) and else false 
+    
     bool isLongPressedName(string name, string typed) {
-          int i = 0, j = 0;
+        int i = 0, j = 0;
         int n = name.size(), m = typed.size();
 
         while (j < m) {
