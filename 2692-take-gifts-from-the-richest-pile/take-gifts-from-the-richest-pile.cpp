@@ -11,14 +11,13 @@ public:
             int topi = pq.top();
             pq.pop();
 
-            int ele = floor(sqrt(topi));
-            pq.push(ele);
+            int n = floor(sqrt(topi));
+            pq.push(n);
+
             k--;
-            
         }
 
         long long sum = 0;
-
         while(!pq.empty()){
             sum += pq.top();
             pq.pop();
